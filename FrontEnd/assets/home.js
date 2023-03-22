@@ -1,64 +1,115 @@
-document.addEventListener("DOMContentLoaded", () => {
-    function loadGallery() {
-        // Récupérer la section des onglets
-        const tabs = document.getElementById("tabs");
+const gallery = document.querySelector(".gallery"); // Sélectionne l'élément de la page HTML qui a une classe "gallery" et la stocke dans la variable gallery //
+const portfolio = document.getElementById("#portfolio"); // Sélectionne l'élément de la page HTML qui a un identifiant "portfolio" (# en CSS) et la stocke dans la variable portfolio //
 
-        // Créer un onglet "Tous" avec une classe active par défaut
-        const allTab = document.createElement("div");
-        allTab.textContent = "Tous";
-        allTab.classList.add("tab", "active");
+/* Affiche les boutons */
+function portfolioFiltered(filteredTool) {
+    let gallery = document.querySelector('.gallery');
+    gallery.innerHTML = '';
+    for (let key in filteredTool) {
+        let figure = document.createElement('figure');
+        gallery.appendChild(figure);
 
-        // Ajouter l'onglet "Tous" à la section des onglets
-        tabs.appendChild(allTab);
+        let img = document.createElement('img');
+        img.src = filteredTool[key].imageUrl;
+        figure.appendChild(img);
+        img.crossOrigin = 'anonymous'; // pour éviter les erreurs de sécurité //
+        let figcaption = document.createElement('figcaption');
+        figcaption.innerHTML = filteredTool[key].title;
+        figure.appendChild(figcaption);
 
-        // Récupérer les catégories depuis l'API
-        fetch('http://localhost:5678/api/categories')
-            .then(response => response.json())
-            .then(categories => {
-                // Pour chaque catégorie récupérée depuis l'API
-                categories.forEach(category => {
-                    // Créer un nouvel onglet avec le nom de la catégorie
-                    const tab = document.createElement("div");
-                    tab.textContent = category.name;
-                    tab.classList.add("tab");
-
-                    // Ajouter l'onglet à la section des onglets
-                    tabs.appendChild(tab);
-                });
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite:', error);
-            });
-
-        // Récupérer la galerie
-        const gallery = document.getElementById("gallery");
-
-        // Récupérer les travaux depuis l'API
-        fetch('http://localhost:5678/api/works')
-            .then(response => response.json())
-            .then(works => {
-                // Pour chaque travail récupéré depuis l'API
-                works.forEach(work => {
-                    // Vérifier si l'objet work a une propriété images et qu'elle n'est pas vide
-                    if (work.images && work.images.length > 0) {
-                        // Créer un élément <img> avec la source de la première image
-                        const img = document.createElement("img");
-                        img.src = work.images[0].url;
-
-                        // Ajouter l'élément <img> à la galerie
-                        gallery.appendChild(img);
-
-                        // Ajouter des classes à l'élément <img> en fonction des catégories du travail
-                        work.categories.forEach(category => {
-                            img.classList.add(category.slug);
-                        });
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite:', error);
-            });
     }
+};
+// afficher les images et les titres associés à un outil spécifique dans la galerie et sélectionne la galerie avec querySelector et met à jour son contenu en vidant son innerHTML //
 
-    loadGallery();
-});
+/* Chercher API */
+let response;
+
+fetch("http://localhost:5678/api/works")
+    .then(function (response) {
+        if (response.ok) {
+            return response.json();
+        }
+        else {
+            throw new Error('Il y a une erreur quant à la réponse de l\'API');
+        }
+    })
+    .then(function (data) {
+        btnObject.addEventListener('click', function () {
+            let filteredTool = Object.entries(data).reduce((obj, [key, value]) => {
+                if (value.category.name === 'Objets') {
+                    obj[key] = value;
+                }
+                return obj;
+            }, {});
+            portfolioFiltered(filteredTool);
+        });
+
+        btnAll.addEventListener('click', function () {
+            let filteredTool = Object.entries(data).reduce((obj, [key, value]) => {
+                obj[key] = value;
+                return obj;
+            }, {});
+            portfolioFiltered(filteredTool);
+        });
+
+        btnAppartment.addEventListener('click', function () {
+            let filteredTool = Object.entries(data).reduce((obj, [key, value]) => {
+                if (value.category.name === 'Appartements') {
+                    obj[key] = value;
+                }
+                return obj;
+            }, {});
+            portfolioFiltered(filteredTool);
+        });
+
+        btnHotel.addEventListener('click', function () {
+            let filteredTool = Object.entries(data).reduce((obj, [key, value]) => {
+                if (value.category.name === 'Hotels & restaurants') {
+                    obj[key] = value;
+                }
+                return obj;
+            }, {});
+            portfolioFiltered(filteredTool);
+        })
+        return data;
+    })
+    .then(function (works) {
+        for (let i = 0; i < works.length; i++) {
+            let work = works[i];
+            let figure = document.createElement("figure");
+
+            let img = document.createElement("img");
+            img.src = work.imageUrl;
+            img.crossOrigin = "anonymous";
+            figure.appendChild(img);
+
+            let figcaption = document.createElement("figcaption");
+            figcaption.innerHTML = work.title;
+            figure.appendChild(figcaption);
+
+            gallery.appendChild(figure);
+        }
+    });
+
+const btnAll = document.querySelector('.btn-filter.green');
+const btnAppartment = document.querySelector('.btn-filter.appartment');
+const btnHotel = document.querySelector('.btn-filter.hotel');
+const btnObject = document.querySelector('.btn-filter.object');
+
+/* Activation des boutons */
+const button = [];
+button.push(btnAll);
+button.push(btnAppartment);
+button.push(btnHotel);
+button.push(btnObject);
+
+for (const btn of button) {
+    btn.addEventListener("click", function () {
+        for (const btn of button) {
+            btn.style.backgroundColor = "#ffffff";
+            btn.style.color = "#1D6154";
+        }
+        this.style.backgroundColor = "#1D6154";
+        this.style.color = "#ffffff";
+    });
+};
