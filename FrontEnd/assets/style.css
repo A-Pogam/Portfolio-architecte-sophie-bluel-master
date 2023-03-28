@@ -1,3 +1,8 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
 html,
 body,
 div,
@@ -85,6 +90,7 @@ video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	background-color: #FFFEF8;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -192,6 +198,8 @@ a {
 	color: black;
 }
 
+/**/
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -237,11 +245,13 @@ button {
 	position: relative;
 	left: 240px;
 	margin: 30px 10px 50px 0;
-	background: white;
+	background-color: transparent;
 	font-family: 'Syne';
 	font-size: 16px;
 	font-weight: 700;
 }
+
+/**/
 
 .gallery {
 	width: 100%;
@@ -308,4 +318,45 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+/* CSS LOGIN */
+
+.form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+label {
+	padding-bottom: 7px;
+}
+
+h3 {
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154;
+}
+
+input {
+	display: flex;
+	flex-direction: column;
+	width: 379px;
+	height: 51px;
+	margin: 10px 0 40px 0;
+	border: 1px transparent;
+	box-shadow: 0 0 10px 0 #e0e0e0;
+}
+
+#submit {
+	padding: 10px 0 10px 0;
+	height: auto;
+}
+
+.link {
+	display: flex;
+	justify-content: center;
+	font-weight: 500;
+	font-size: 14px;
 }
