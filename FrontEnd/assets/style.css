@@ -376,6 +376,7 @@ input {
 	color: white;
 	height: 59px;
 	font-size: 16px;
+
 }
 
 .publish {
@@ -393,9 +394,38 @@ input {
 	background-color: white;
 	color: black;
 	font-family: 'work sans';
-	font-weight: 500;
+	font-weight: lighter;
 	margin: 10px;
 }
 
 /* Modifier */
-.fa-regular fa-pen-to-square {}
+.edit {
+	font-family: 'work sans';
+	font-weight: lighter;
+	color: black;
+	border: none;
+	font-size: 14px;
+	position: absolute;
+	left: 23px;
+}
+
+.edit a {
+	padding-left: 5px;
+	font-weight: lighter;
+}
+
+.edit2 {
+	font-family: 'work sans';
+	font-weight: lighter;
+	color: black;
+	border: none;
+	font-size: 14px;
+	position: absolute;
+	left: 531px;
+	top: 471px;
+}
+
+.edit a {
+	padding-left: 5px;
+	font-weight: lighter;
+}
