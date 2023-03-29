@@ -363,3 +363,39 @@ input {
 	font-weight: 500;
 	font-size: 14px;
 }
+
+/* Modification */
+
+.banner,
+.edition-view {
+	font-family: 'work sans';
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	height: 59px;
+	font-size: 16px;
+}
+
+.publish {
+	left: 20px;
+	font-size: 14px;
+}
+
+#bannericon {
+	color: white;
+	background-color: transparent;
+	padding-right: 10px;
+}
+
+.publish {
+	background-color: white;
+	color: black;
+	font-family: 'work sans';
+	font-weight: 500;
+	margin: 10px;
+}
+
+/* Modifier */
+.fa-regular fa-pen-to-square {}
