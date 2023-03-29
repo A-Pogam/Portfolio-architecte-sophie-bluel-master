@@ -321,6 +321,9 @@ footer nav ul {
 }
 
 /* CSS LOGIN */
+li[data-target="#modal4"] {
+	font-weight: bold;
+}
 
 .form {
 	display: flex;
