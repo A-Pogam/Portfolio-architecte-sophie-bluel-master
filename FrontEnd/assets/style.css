@@ -203,6 +203,7 @@ a {
 #introduction {
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 
 #introduction figure {
@@ -399,14 +400,26 @@ input {
 }
 
 /* Modifier */
+
+figcaption {
+	align-self: center;
+	height: 30px;
+	width: 80%;
+	margin: auto;
+}
+
 .edit {
 	font-family: 'work sans';
 	font-weight: lighter;
 	color: black;
 	border: none;
 	font-size: 14px;
-	position: absolute;
-	left: 23px;
+	margin: 0px;
+	height: 0px;
+	position: static;
+	padding-left: 0px;
+	padding-top: 15px;
+
 }
 
 .edit a {
@@ -420,12 +433,13 @@ input {
 	color: black;
 	border: none;
 	font-size: 14px;
-	position: absolute;
-	left: 531px;
-	top: 471px;
+	position: static;
+	padding-left: 0px;
+
 }
 
 .edit a {
 	padding-left: 5px;
 	font-weight: lighter;
+
 }
