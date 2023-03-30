@@ -400,7 +400,6 @@ input {
 }
 
 /* Modifier */
-
 figcaption {
 	align-self: center;
 	height: 30px;
@@ -419,12 +418,20 @@ figcaption {
 	position: static;
 	padding-left: 0px;
 	padding-top: 15px;
-
 }
 
 .edit a {
 	padding-left: 5px;
 	font-weight: lighter;
+}
+
+.admin #portfolio {
+	text-align: center;
+}
+
+.admin #portfolio h2 {
+	display: inline-block;
+	margin-right: 10px;
 }
 
 .edit2 {
@@ -434,12 +441,13 @@ figcaption {
 	border: none;
 	font-size: 14px;
 	position: static;
-	padding-left: 0px;
-
+	padding: 0;
+	margin: 0;
 }
 
 .edit a {
 	padding-left: 5px;
 	font-weight: lighter;
-
+	margin-top: -20px;
+	align-self: end;
 }
