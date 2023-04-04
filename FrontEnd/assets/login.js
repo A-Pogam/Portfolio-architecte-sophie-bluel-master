@@ -39,7 +39,7 @@ submit.addEventListener("click", (event) => {
             if (userInformation) {
                 sessionStorage.setItem("userInformation", JSON.stringify(userInformation));
                 sessionStorage.setItem("token", userInformation.token);
-                location.replace("../FrontEnd/admin.html");
+                location.replace("../FrontEnd/index.html");
             }
         })
         .catch(error => console.error(error));

@@ -126,3 +126,13 @@ for (const btn of button) {
     });
     //apparence des boutons, à modifier pour être conforme à la maquette
 };
+// Vérifier si l'utilisateur est connecté
+if (sessionStorage.getItem('loggedIn') === 'true') {
+
+    // Vérifier si l'utilisateur a les autorisations nécessaires
+    if (sessionStorage.getItem('userRole') === 'admin') {
+
+        // Afficher la section d'administration
+        document.getElementById('admin-panel').style.display = 'block';
+    }
+}
