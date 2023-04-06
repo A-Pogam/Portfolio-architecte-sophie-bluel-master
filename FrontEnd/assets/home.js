@@ -127,3 +127,28 @@ for (const btn of button) {
     //apparence des boutons, à modifier pour être conforme à la maquette
 };
 
+// Vérifier si l'utilisateur est connecté
+if (sessionStorage.getItem('loggedIn') === 'true') {
+
+    const editButton = document.getElementById("edit-button-2");
+    // Afficher les boutons "Modifier"
+    const elementsAModifier = document.querySelectorAll('.element-a-modifier');
+    elementsAModifier.forEach(element => {
+        element.style.display = 'block';
+    });
+}
+// Créer un bouton de modification
+const editButton = document.createElement("button");
+editButton.innerText = "Modifier";
+
+// Ajouter un écouteur d'événements pour le clic sur le bouton
+editButton.addEventListener("click", () => {
+    // Code à exécuter lorsque le bouton est cliqué
+    console.log("Bouton de modification cliqué !");
+});
+
+// Ajouter le bouton à la section de la page
+const section = document.getElementById("sectionId");
+section.appendChild(editButton);
+
+
