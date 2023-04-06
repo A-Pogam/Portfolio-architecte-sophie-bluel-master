@@ -39,8 +39,8 @@ submit.addEventListener("click", (event) => {
             if (userInformation) {
                 sessionStorage.setItem("userInformation", JSON.stringify(userInformation));
                 sessionStorage.setItem("token", userInformation.token);
-                location.replace("../FrontEnd/index.html");
+                window.location.href = "../FrontEnd/index.html"; // redirection vers la page d'accueil
             }
         })
         .catch(error => console.error(error));
-});
+})
