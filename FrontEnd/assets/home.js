@@ -3,7 +3,7 @@ const gallery = document.querySelector(".gallery");
 const portfolio = document.getElementById("#portfolio");
 // Sélectionne l'élément de la page HTML qui a un identifiant "portfolio" (# en CSS) et la stocke dans la variable portfolio //
 
-/* Affiche les boutons et le contenu */
+/* Affiche le contenu */
 function portfolioFiltered(filteredTool) {
     let gallery = document.querySelector('.gallery');
     gallery.innerHTML = '';
@@ -27,7 +27,7 @@ function portfolioFiltered(filteredTool) {
 };
 // afficher les images et les titres associés à un outil spécifique dans la galerie et sélectionne la galerie avec querySelector et met à jour son contenu en vidant son innerHTML //
 
-/* Chercher API */
+/* Cherche API */
 let response;
 
 fetch("http://localhost:5678/api/works")
@@ -124,22 +124,44 @@ for (const btn of button) {
         this.style.backgroundColor = "#1D6154";
         this.style.color = "#ffffff";
     });
-    //apparence des boutons, à modifier pour être conforme à la maquette
 };
 
-// Vérifier si l'utilisateur est connecté
-if (sessionStorage.getItem('loggedIn') === 'true') {
+const token = localStorage.getItem('token');
+if (sessionStorage.getItem('token')) {
+    // Si le token est présent, masquez les filtres
+    btnAll.style.display = 'none';
+    btnAppartment.style.display = 'none';
+    btnHotel.style.display = 'none';
+    btnObject.style.display = 'none';
+} else {
+    // Sinon, affichez les filtres
 
-    const editButton = document.getElementById("edit-button-2");
-    // Afficher les boutons "Modifier"
-    const elementsAModifier = document.querySelectorAll('.element-a-modifier');
-    elementsAModifier.forEach(element => {
-        element.style.display = 'block';
+}
+
+// remplacer login par logout si connecté et recharger page quand déconnecté
+const loginLink = document.querySelector('.login a');
+
+if (sessionStorage.getItem('token')) {
+    loginLink.textContent = 'logout';
+    loginLink.addEventListener('click', function (e) {
+        e.preventDefault(); //empêche d'aller vers login.html
+        sessionStorage.removeItem('token');
+        loginLink.textContent = 'login';
+        location.reload();
     });
 }
-// Créer un bouton de modification
-const editButton = document.createElement("button");
-editButton.innerText = "Modifier";
+
+// faire apparaître modifier seulement si connecté
+const editButtons = document.querySelectorAll('.edit2, .edit');
+if (sessionStorage.getItem('token')) {
+    editButtons.forEach(button => {
+        button.style.display = 'block';
+    });
+} else {
+    editButtons.forEach(button => {
+        button.style.display = 'none';
+    });
+}
 
 // Ajouter un écouteur d'événements pour le clic sur le bouton
 editButton.addEventListener("click", () => {
