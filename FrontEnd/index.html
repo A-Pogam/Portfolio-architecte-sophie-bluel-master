@@ -14,6 +14,13 @@
 </head>
 
 <body>
+	<div class="banner">
+        <div class="edition-view">
+            <i class="fa-regular fa-solid fa-pen-to-square" id="bannericon"></i>
+            <p class="edition-view">Mode édition</p>
+            <button class="publish">publier les changements</button>
+        </div>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -33,14 +40,14 @@
 			<figcaption>       
 				<button id="edit-button" class="edit2"> 
 				<i class="fa-regular fa-pen-to-square"></i>
-				<a href="#" role="button" data-target="#modal2" data-toggle="modal">modifier</a>
+				<a href="#" role="button" data-target="modal" data-toggle="modal">modifier</a>
 				</button>
 			</figcaption>
 		</figure>
 		<article>
 			<button id="edit-button" class="edit2">
                 <i class="fa-regular fa-pen-to-square"></i>
-                <a href="#"	role="button" data-target="#modal3" data-toggle="modal">modifier</a>
+                <a href="#"	role="button" data-target="#modal2" data-toggle="modal">modifier</a>
             </button>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
@@ -51,7 +58,7 @@
 	<section id="portfolio">
 		<h2>Mes Projets <button id="edit-button" class="edit" id="project">
 			<i class="fa-regular fa-pen-to-square"></i>
-			<a href="#"	role="button" data-target="#modal3" data-toggle="modal">modifier</a>
+			<a href="#modal1" class="js-modal" role="button" data-toggle="modal">modifier</a>
 		</button></h2>
 		
 		<button class="btn-filter green">Tous</button><button class="btn-filter object">Objets</button><button class="btn-filter appartment">Appartements</button><button class="btn-filter hotel">Hôtels & retaurants</button>
@@ -71,6 +78,22 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" style="display: none;">
+		<div class="modal-wrapper">
+			<button class="modal-close">x</button>
+			<div class="modalManager">
+				<p>Galerie Photo<p> 
+				<i class="fa-sharp fa-solid fa-up-down-left-right"></i>
+			</div>
+			<ul class="photo">
+				<li><a class="linkphoto" href="#" role="button" data-target="#modal5" data-toggle="modal">Ajouter
+						une photo</a></li>
+			</ul>
+			<ul>
+				<li class="delete-gallery">Supprimer la galerie</li>
+			</ul>
+		</div>
+	</aside>
 </main>
 
 <footer>
