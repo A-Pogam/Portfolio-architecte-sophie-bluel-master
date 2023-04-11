@@ -152,7 +152,7 @@ if (sessionStorage.getItem('token')) {
 }
 
 // faire apparaître modifier seulement si connecté
-const editButtons = document.querySelectorAll('.edit2, .edit, .banner, .modal');
+const editButtons = document.querySelectorAll('.edit2, .modal-btn, .banner, .modal');
 if (sessionStorage.getItem('token')) {
     editButtons.forEach(button => {
         button.style.display = 'block';
@@ -162,38 +162,11 @@ if (sessionStorage.getItem('token')) {
         button.style.display = 'none';
     });
 }
+const modalContainer = document.querySelector(".modal-container");
+const modalTriggers = document.querySelectorAll(".modal-trigger");
 
-// Ajouter un écouteur d'événements pour le clic sur le bouton
-editButton.addEventListener("click", () => {
-    // Code à exécuter lorsque le bouton est cliqué
-    console.log("Bouton de modification cliqué !");
-});
+modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
-let modal = null
-
-const openModal = function (e) {
-    e.preventDefault()
-    const target = document.querySelector(e.target.getAttribute('href'))
-    console.log(target);
-    target.style.display = null
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal', 'true')
-    modal = target
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.modal-close').addEventListener('click', closeModal)
+function toggleModal() {
+    modalContainer.classList.toggle("active")
 }
-
-const closeModal = function (e) {
-    if (modal === null) return
-    e.preventDefault()
-    modal.style.display = "none"
-    modal.setAttribute('aria-hidden', 'true')
-    modal.removeAttribute('aria-modal')
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.modal-close').removeEventListener('click', closeModal)
-    modal = null
-}
-
-document.querySelectorAll('.js-modal').forEach(a => {
-    a.addEventListener('click', openModal)
-})
