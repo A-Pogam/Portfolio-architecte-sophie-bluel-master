@@ -461,7 +461,6 @@ figcaption {
 
 .modal-container.active .overlay {
 	opacity: 1;
-	transition: opacity 0.4s ease-out;
 }
 
 .modal {
@@ -502,11 +501,28 @@ figcaption {
 	font-size: 26px;
 }
 
+.modal hr {
+	width: 420px;
+	border: 1px solid #B3B3B3;
+}
 
+.modal ul {
+	background-color: #fff;
+}
 
-.modal p {
+.modal ul button {
 	line-height: 1.4;
 	margin-bottom: 5px;
-	background-color: #fff;
+	background-color: #1D6154;
+	color: white;
 	font-family: 'work sans';
+	left: 0;
+	padding: 0 40px 0 49px;
+	font-size: 14px;
+	margin-bottom: 32px;
+}
+
+.modal li {
+	background-color: #fff;
+	color: #D65353;
 }

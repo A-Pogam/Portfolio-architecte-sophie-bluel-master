@@ -162,11 +162,48 @@ if (sessionStorage.getItem('token')) {
         button.style.display = 'none';
     });
 }
+
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
 
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
 function toggleModal() {
-    modalContainer.classList.toggle("active")
+    modalContainer.classList.toggle("active") //pour l'affichage de la modale sur la page
 }
+
+const modalContent = document.querySelector(".modal"); //pour afficher de nouveau les travaux via fetch mais dans la modale
+
+fetch("http://localhost:5678/api/works")
+    .then(function (response) {
+        if (response.ok) {
+            return response.json();
+        }
+        else {
+            throw new Error('Erreur lors de la récupération des travaux :');
+        }
+    })
+    .then(function (data) {
+        const gallery = document.createElement("div");
+        gallery.classList.add("gallery");
+
+        data.forEach(work => {
+            let figure = document.createElement("figure");
+
+            let img = document.createElement("img");
+            img.src = work.imageUrl;
+            img.crossOrigin = "anonymous";
+            figure.appendChild(img);
+
+            let figcaption = document.createElement("figcaption");
+            let editLink = document.createTextNode("éditer"); // remplacer la légende d'origine par "éditer"
+            figcaption.appendChild(editLink);
+            figure.appendChild(figcaption);
+
+
+
+            gallery.appendChild(figure);
+        });
+
+        modalContent.insertBefore(gallery, modalContent.querySelector("hr"));
+    });
