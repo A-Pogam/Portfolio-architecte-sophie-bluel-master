@@ -442,7 +442,6 @@ figcaption {
 	top: 0;
 	width: 100vw;
 	height: 100vh;
-	transition: visibility 0.4s;
 	background-color: transparent;
 }
 
@@ -470,7 +469,7 @@ figcaption {
 	padding: 20px;
 	border-radius: 5px;
 	position: fixed;
-	top: 40%;
+	top: 50%;
 	left: 50%;
 	text-align: center;
 	background-color: #fff;
@@ -525,4 +524,26 @@ figcaption {
 .modal li {
 	background-color: #fff;
 	color: #D65353;
+}
+
+.modal .gallery {
+	margin-top: 46px;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column-gap: 0;
+	grid-row-gap: 0;
+	background-color: #fff;
+}
+
+.modal figure {
+	background-color: #fff;
+	width: 70%;
+	height: 75%;
+}
+
+
+.modal .gallery figure figcaption {
+	margin: 0;
+	background-color: #fff;
+	text-align: initial;
+
 }
