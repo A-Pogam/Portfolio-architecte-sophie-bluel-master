@@ -169,7 +169,7 @@ const modalTriggers = document.querySelectorAll(".modal-trigger");
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
 function toggleModal() {
-    modalContainer.classList.toggle("active") //pour l'affichage de la modale sur la page
+    modalContainer.classList.toggle("active") //pour l'affichage de la page modale sur la page
 }
 
 const modalContent = document.querySelector(".modal"); //pour afficher de nouveau les travaux via fetch mais dans la modale
@@ -207,3 +207,64 @@ fetch("http://localhost:5678/api/works")
 
         modalContent.insertBefore(gallery, modalContent.querySelector("hr"));
     });
+
+const addPhotoButton = document.querySelector('#dialogDesc');
+addPhotoButton.addEventListener('click', openAddPhotoModal);
+
+function openAddPhotoModal() {
+
+    const modalTitle = document.querySelector('#modalTitle');
+    modalTitle.textContent = 'Ajout photo';
+
+    const dialogDesc = document.querySelector('#dialogDesc');
+    dialogDesc.innerHTML = `
+    <div class="modal-container-2"></div>
+    <button class="previous"><i class="fa fa-arrow-left"></i></button>
+    <button aria-label="close modal" class="close-modal modal-trigger"><i class="fa fa-xmark"></i></button>
+
+    <div class="container">
+        <div class="wrapper">
+            <div class="icon"><i class="fa-regular fa-image fa-6x"></i></div>
+            <input id="file-upload" type="file"></input>
+            <label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
+            <img id="preview-img">
+            <p class="jpg">jpg, png : 4 mo max</p>
+
+            <form id="form-file">
+                <label id="title" for="photoTitle">Titre</label>
+                <input type="text" id="photoTitle" name="photoTitle">
+                <label id="categories" for="categories">Catégorie</label>
+                    <select id="select">
+                        <option></option>
+                        <option value="Objets">Objets</option>
+                        <option value="Appartement">Appartements</option>
+                        <option value="Hôtels & restaurants">Hôtels & restaurants</option>
+                    </select>
+                <hr>
+                <ul id="dialogDesc2"> 
+                    <button id="valider">Valider</button>
+                </ul>           
+            </form>
+        </div>
+
+  `;
+
+    const inputFile = document.getElementById('file-upload');
+    const previewImg = document.querySelector('#preview-img');
+
+    inputFile.addEventListener('change', () => {
+        const file = inputFile.files[0];
+        console.log(file);
+        const reader = new FileReader();
+
+        reader.addEventListener('load', () => {
+            console.log('image loaded');
+            previewImg.src = reader.result;
+        });
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+
+}

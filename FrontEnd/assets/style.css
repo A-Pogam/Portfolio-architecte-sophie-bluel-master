@@ -480,15 +480,17 @@ figcaption {
 	transform: translate(-50%, -50%);
 }
 
-.close-modal {
+.close-modal,
+.modal-container .close-modal-2 {
 	padding: 0;
-	border: none;
+	border: none !important;
 	border-radius: 5px;
 	margin: 0;
 	cursor: pointer;
-	color: black;
+	color: black !important;
 	left: 240px;
 	/* est déjà dans button */
+	background-color: transparent !important;
 }
 
 .modal h1 {
@@ -546,4 +548,108 @@ figcaption {
 	background-color: #fff;
 	text-align: initial;
 
+}
+
+/* Modale ajout photo */
+
+.modal-container .previous {
+	padding: 0;
+	border: none !important;
+	border-radius: 5px;
+	right: 240px;
+	margin: 0;
+	cursor: pointer;
+	color: black !important;
+	background-color: transparent !important;
+}
+
+.container {
+	width: 75%;
+}
+
+.container,
+.container .wrapper,
+.icon,
+.fa-image,
+.jpg {
+	background-color: #E8F1F6 !important;
+}
+
+
+.container .wrapper #form {
+	background-color: #fff;
+}
+
+.icon {
+	margin-bottom: 27px;
+}
+
+.fa-image {
+	color: #9faeb6;
+}
+
+.jpg {
+	margin-top: 19px;
+	margin-bottom: 27px;
+	font-size: smaller;
+}
+
+input[type="file"] {
+	display: none;
+}
+
+.custom-file-upload {
+	box-sizing: border-box;
+	color: #306685;
+	border-radius: 60px;
+	width: auto;
+	height: 37px;
+	padding-left: 33px;
+	padding-right: 33px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	position: relative;
+	background-color: #CBD6DC;
+	font-family: 'work sans';
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+form {
+	background-color: #fff;
+	padding-top: 50px;
+}
+
+#title,
+#categories {
+	font-size: 14px;
+	padding-bottom: 0;
+	display: flex;
+	background-color: #fff;
+}
+
+#photoTitle,
+#select {
+	width: 479px;
+	background-color: #fff;
+}
+
+#select {
+	box-shadow: 0 10px 0 #e0e0e0;
+	border: 1px transparent;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 51px;
+}
+
+#select option {
+	font-size: 20px;
+}
+
+#valider {
+	background-color: #A7A7A7;
+	border: none;
+	width: 237px;
+	cursor: pointer;
 }
