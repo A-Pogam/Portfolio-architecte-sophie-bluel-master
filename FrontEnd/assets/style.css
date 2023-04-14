@@ -564,6 +564,7 @@ figcaption {
 	border: none;
 	height: auto;
 	padding: 0;
+	cursor: pointer;
 }
 
 .delete-button {
