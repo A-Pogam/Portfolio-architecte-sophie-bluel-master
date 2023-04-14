@@ -255,7 +255,6 @@ button {
 /**/
 
 .gallery {
-	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
@@ -398,14 +397,14 @@ input {
 	margin: 10px;
 }
 
-/* Modifier */
+/* MODIFIER */
 figcaption {
 	align-self: center;
 	height: 30px;
 	width: 80%;
-	margin: auto;
 }
 
+.edit1,
 .edit2 {
 	font-family: 'work sans';
 	font-weight: lighter;
@@ -415,6 +414,10 @@ figcaption {
 	position: static;
 	padding: 0;
 	margin: 0;
+}
+
+.edit1 {
+	margin-left: 60px;
 }
 
 .modal-btn {
@@ -434,6 +437,8 @@ figcaption {
 	font-weight: lighter !important;
 	padding-right: 5px;
 }
+
+/* MODAL */
 
 .modal-container {
 	/* display: none; */
@@ -481,7 +486,8 @@ figcaption {
 }
 
 .close-modal,
-.modal-container .close-modal-2 {
+.modal-container,
+.close-modal2 {
 	padding: 0;
 	border: none !important;
 	border-radius: 5px;
@@ -530,16 +536,17 @@ figcaption {
 
 .modal .gallery {
 	margin-top: 46px;
+	margin-left: 105px;
+	margin-right: 105px;
 	grid-template-columns: repeat(5, 1fr);
-	grid-column-gap: 0;
+	grid-column-gap: 10px;
 	grid-row-gap: 0;
 	background-color: #fff;
+	place-items: center;
 }
 
 .modal figure {
 	background-color: #fff;
-	width: 70%;
-	height: 75%;
 }
 
 
@@ -547,10 +554,67 @@ figcaption {
 	margin: 0;
 	background-color: #fff;
 	text-align: initial;
-
 }
 
-/* Modale ajout photo */
+.edit-button,
+.delete-button {
+	left: 0;
+	margin: 0;
+	bottom: 120px;
+	border: none;
+	height: auto;
+	padding: 0;
+}
+
+.delete-button {
+	left: 60px;
+	top: -115px;
+}
+
+.edit-button {
+	left: 40px;
+	top: -130px;
+}
+
+.gallery button {
+	display: flex;
+}
+
+
+
+/* MODALE 2 */
+
+.wrapper,
+.icon,
+.fa-image,
+.jpg,
+.content-file-upload {
+	background-color: #E8F1F6 !important;
+}
+
+.wrapper #form,
+.container,
+.modal-container-2,
+form,
+#title,
+#categories,
+#photoTitle,
+#select,
+.icons,
+.foot {
+	background-color: #fff;
+}
+
+.container {
+	width: 10%;
+	display: flex;
+	border: none;
+}
+
+.wrapper {
+	display: grid;
+	margin-left: 100px;
+}
 
 .modal-container .previous {
 	padding: 0;
@@ -563,21 +627,12 @@ figcaption {
 	background-color: transparent !important;
 }
 
-.container {
-	width: 75%;
+.close-modal2 {
+	margin-left: 455px;
 }
 
-.container,
-.container .wrapper,
-.icon,
-.fa-image,
-.jpg {
-	background-color: #E8F1F6 !important;
-}
-
-
-.container .wrapper #form {
-	background-color: #fff;
+.content-file-upload {
+	margin-bottom: 27px;
 }
 
 .icon {
@@ -590,7 +645,6 @@ figcaption {
 
 .jpg {
 	margin-top: 19px;
-	margin-bottom: 27px;
 	font-size: smaller;
 }
 
@@ -617,26 +671,25 @@ input[type="file"] {
 }
 
 form {
-	background-color: #fff;
-	padding-top: 50px;
+	padding: 50px 0 50px 0;
 }
+
 
 #title,
 #categories {
 	font-size: 14px;
 	padding-bottom: 0;
 	display: flex;
-	background-color: #fff;
+
 }
 
 #photoTitle,
 #select {
-	width: 479px;
-	background-color: #fff;
+	width: 429px;
 }
 
 #select {
-	box-shadow: 0 10px 0 #e0e0e0;
+	box-shadow: 0 4px 14px #e0e0e0;
 	border: 1px transparent;
 	margin-bottom: 10px;
 	margin-top: 10px;
@@ -644,8 +697,9 @@ form {
 }
 
 #select option {
-	font-size: 20px;
+	font-size: 30px;
 }
+
 
 #valider {
 	background-color: #A7A7A7;

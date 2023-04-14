@@ -3,6 +3,41 @@ const gallery = document.querySelector(".gallery");
 const portfolio = document.getElementById("#portfolio");
 // Sélectionne l'élément de la page HTML qui a un identifiant "portfolio" (# en CSS) et la stocke dans la variable portfolio //
 
+const btnAll = document.querySelector('.btn-filter.green');
+const btnAppartment = document.querySelector('.btn-filter.appartment');
+const btnHotel = document.querySelector('.btn-filter.hotel');
+const btnObject = document.querySelector('.btn-filter.object');
+// constantes qui contiennent des éléments HTML //
+
+/* Activation des boutons */
+const button = [];
+button.push(btnAll);
+button.push(btnAppartment);
+button.push(btnHotel);
+button.push(btnObject);
+// crée tableau avec tous les boutons nécessaires //
+
+const token = localStorage.getItem('token');
+
+// remplacer login par logout si connecté et recharger page quand déconnecté
+const loginLink = document.querySelector('.login a');
+
+const modalContainer = document.querySelector(".modal-container");
+const modalTriggers = document.querySelectorAll(".modal-trigger");
+
+// faire apparaître modifier seulement si connecté
+const editButtons = document.querySelectorAll('.edit1, .edit2, .modal-btn modal-trigger, .banner, .modal');
+
+const modalContent = document.querySelector(".modal"); //pour afficher de nouveau les travaux via fetch mais dans la modale
+
+const addPhotoButton = document.querySelector('#dialogDesc');
+
+/* Cherche API */
+let response;
+
+// ************************ FUNCTION !!!!!! ****************************
+
+
 /* Affiche le contenu */
 function portfolioFiltered(filteredTool) {
     let gallery = document.querySelector('.gallery');
@@ -27,8 +62,92 @@ function portfolioFiltered(filteredTool) {
 };
 // afficher les images et les titres associés à un outil spécifique dans la galerie et sélectionne la galerie avec querySelector et met à jour son contenu en vidant son innerHTML //
 
-/* Cherche API */
-let response;
+function toggleModal() {
+    modalContainer.classList.toggle("active") //pour l'affichage de la page modale sur la page
+
+}
+
+function openAddPhotoModal() {
+
+
+    const modalTitle = document.querySelector('#modalTitle');
+    modalTitle.textContent = 'Ajout photo';
+
+    const dialogDesc = document.querySelector('#dialogDesc');
+    dialogDesc.innerHTML = `
+    <div class="modal-container-2">
+        <div class="icons">
+            <button class="previous"><i class="fa fa-arrow-left"></i></button>
+            <button aria-label="close modal" class="close-modal2 modal-trigger"><i class="fa fa-xmark"></i></button>
+        </div>
+
+        <div class="container">
+            <div class="wrapper">
+                <div class="content-file-upload">
+                <div class="icon"><i class="fa-regular fa-image fa-6x"></i></div>
+                <input id="file-upload" type="file"></input>
+                <label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
+                <img id="preview-img">
+                <p class="jpg">jpg, png : 4 mo max</p>
+            </div>
+
+            <form id="form-file">
+                    <label id="title" for="photoTitle">Titre</label>
+                    <input type="text" id="photoTitle" name="photoTitle">
+                    <label id="categories" for="categories">Catégorie</label>
+                        <select id="select">
+                            <option></option>
+                            <option value="Objets">Objets</option>
+                            <option value="Appartement">Appartements</option>
+                            <option value="Hôtels & restaurants">Hôtels & restaurants</option>
+                        </select>
+            </form>
+            
+            <div class="foot">
+                <hr>
+                <ul id="dialogDesc2"> 
+                    <button id="valider">Valider</button>
+                </ul>
+            </div>           
+        </div>
+
+  `;
+
+    //cherche à prévisualiser l'image chargé 
+    const inputFile = document.getElementById('file-upload');
+    const previewImg = document.querySelector('#preview-img');
+
+    inputFile.addEventListener('change', () => {
+        const file = inputFile.files[0];
+        console.log(file);
+        const reader = new FileReader();
+
+        reader.addEventListener('load', () => {
+            console.log('image loaded');
+            previewImg.src = reader.result;
+        });
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+
+}
+
+function manageFilters() {
+    if (sessionStorage.getItem('token')) {
+        // Si le token est présent, masquez les filtres
+        btnAll.style.display = 'none';
+        btnAppartment.style.display = 'none';
+        btnHotel.style.display = 'none';
+        btnObject.style.display = 'none';
+    } else {
+        // Sinon, affichez les filtres
+
+    }
+}
+
+// ************************ MAIN CODE !!!!!! ****************************
 
 fetch("http://localhost:5678/api/works")
     .then(function (response) {
@@ -101,19 +220,6 @@ fetch("http://localhost:5678/api/works")
         }
     });
 
-const btnAll = document.querySelector('.btn-filter.green');
-const btnAppartment = document.querySelector('.btn-filter.appartment');
-const btnHotel = document.querySelector('.btn-filter.hotel');
-const btnObject = document.querySelector('.btn-filter.object');
-// constantes qui contiennent des éléments HTML //
-
-/* Activation des boutons */
-const button = [];
-button.push(btnAll);
-button.push(btnAppartment);
-button.push(btnHotel);
-button.push(btnObject);
-// crée tableau avec tous les boutons nécessaires //
 
 for (const btn of button) {
     btn.addEventListener("click", function () {
@@ -126,20 +232,8 @@ for (const btn of button) {
     });
 };
 
-const token = localStorage.getItem('token');
-if (sessionStorage.getItem('token')) {
-    // Si le token est présent, masquez les filtres
-    btnAll.style.display = 'none';
-    btnAppartment.style.display = 'none';
-    btnHotel.style.display = 'none';
-    btnObject.style.display = 'none';
-} else {
-    // Sinon, affichez les filtres
 
-}
-
-// remplacer login par logout si connecté et recharger page quand déconnecté
-const loginLink = document.querySelector('.login a');
+manageFilters();
 
 if (sessionStorage.getItem('token')) {
     loginLink.textContent = 'logout';
@@ -151,8 +245,7 @@ if (sessionStorage.getItem('token')) {
     });
 }
 
-// faire apparaître modifier seulement si connecté
-const editButtons = document.querySelectorAll('.edit2, .modal-btn, .banner, .modal');
+
 if (sessionStorage.getItem('token')) {
     editButtons.forEach(button => {
         button.style.display = 'block';
@@ -163,16 +256,12 @@ if (sessionStorage.getItem('token')) {
     });
 }
 
-const modalContainer = document.querySelector(".modal-container");
-const modalTriggers = document.querySelectorAll(".modal-trigger");
+
 
 modalTriggers.forEach(trigger => trigger.addEventListener("click", toggleModal))
 
-function toggleModal() {
-    modalContainer.classList.toggle("active") //pour l'affichage de la page modale sur la page
-}
 
-const modalContent = document.querySelector(".modal"); //pour afficher de nouveau les travaux via fetch mais dans la modale
+
 
 fetch("http://localhost:5678/api/works")
     .then(function (response) {
@@ -187,7 +276,7 @@ fetch("http://localhost:5678/api/works")
         const gallery = document.createElement("div");
         gallery.classList.add("gallery");
 
-        data.forEach(work => {
+        data.forEach((work, index) => {
             let figure = document.createElement("figure");
 
             let img = document.createElement("img");
@@ -195,12 +284,33 @@ fetch("http://localhost:5678/api/works")
             img.crossOrigin = "anonymous";
             figure.appendChild(img);
 
+            // Ajouter une légende avec le mot "éditer"
             let figcaption = document.createElement("figcaption");
-            let editLink = document.createTextNode("éditer"); // remplacer la légende d'origine par "éditer"
+            let editLink = document.createTextNode("éditer");
             figcaption.appendChild(editLink);
             figure.appendChild(figcaption);
 
+            // Ajouter un bouton de suppression avec une icône trash
+            let deleteButton = document.createElement("button");
+            deleteButton.classList.add("delete-button");
+            deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+            deleteButton.addEventListener("click", () => {
+                // Action à effectuer lorsque le bouton de suppression est cliqué
+                console.log("Supprimer l'image : ", work.imageUrl);
+            });
+            figcaption.appendChild(deleteButton);
 
+            // Ajouter un bouton d'édition avec une icône pencil
+            if (index === 0) {
+                let editButton = document.createElement("button");
+                editButton.classList.add("edit-button");
+                editButton.innerHTML = '<i class="fa fa-arrows-up-down-left-right"></i>';
+                editButton.addEventListener("click", () => {
+                    // Action à effectuer lorsque le bouton d'édition est cliqué
+                    console.log("Éditer l'image : ", work.imageUrl);
+                });
+                figcaption.appendChild(editButton);
+            }
 
             gallery.appendChild(figure);
         });
@@ -208,63 +318,4 @@ fetch("http://localhost:5678/api/works")
         modalContent.insertBefore(gallery, modalContent.querySelector("hr"));
     });
 
-const addPhotoButton = document.querySelector('#dialogDesc');
 addPhotoButton.addEventListener('click', openAddPhotoModal);
-
-function openAddPhotoModal() {
-
-    const modalTitle = document.querySelector('#modalTitle');
-    modalTitle.textContent = 'Ajout photo';
-
-    const dialogDesc = document.querySelector('#dialogDesc');
-    dialogDesc.innerHTML = `
-    <div class="modal-container-2"></div>
-    <button class="previous"><i class="fa fa-arrow-left"></i></button>
-    <button aria-label="close modal" class="close-modal modal-trigger"><i class="fa fa-xmark"></i></button>
-
-    <div class="container">
-        <div class="wrapper">
-            <div class="icon"><i class="fa-regular fa-image fa-6x"></i></div>
-            <input id="file-upload" type="file"></input>
-            <label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
-            <img id="preview-img">
-            <p class="jpg">jpg, png : 4 mo max</p>
-
-            <form id="form-file">
-                <label id="title" for="photoTitle">Titre</label>
-                <input type="text" id="photoTitle" name="photoTitle">
-                <label id="categories" for="categories">Catégorie</label>
-                    <select id="select">
-                        <option></option>
-                        <option value="Objets">Objets</option>
-                        <option value="Appartement">Appartements</option>
-                        <option value="Hôtels & restaurants">Hôtels & restaurants</option>
-                    </select>
-                <hr>
-                <ul id="dialogDesc2"> 
-                    <button id="valider">Valider</button>
-                </ul>           
-            </form>
-        </div>
-
-  `;
-
-    const inputFile = document.getElementById('file-upload');
-    const previewImg = document.querySelector('#preview-img');
-
-    inputFile.addEventListener('change', () => {
-        const file = inputFile.files[0];
-        console.log(file);
-        const reader = new FileReader();
-
-        reader.addEventListener('load', () => {
-            console.log('image loaded');
-            previewImg.src = reader.result;
-        });
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    });
-
-}
