@@ -565,6 +565,7 @@ figcaption {
 	height: auto;
 	padding: 0;
 	cursor: pointer;
+	/*cursor: pointer; pb car toute la page est sur pointer */
 }
 
 .delete-button {
