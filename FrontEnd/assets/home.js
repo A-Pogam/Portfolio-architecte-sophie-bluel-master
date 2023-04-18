@@ -276,7 +276,7 @@ fetch("http://localhost:5678/api/works")
         const gallery = document.createElement("div");
         gallery.classList.add("gallery");
 
-        data.forEach((work, index) => {
+        data.forEach(work => {
             let figure = document.createElement("figure");
 
             let img = document.createElement("img");
@@ -284,33 +284,37 @@ fetch("http://localhost:5678/api/works")
             img.crossOrigin = "anonymous";
             figure.appendChild(img);
 
-            // Ajouter une légende avec le mot "éditer"
             let figcaption = document.createElement("figcaption");
-            let editLink = document.createTextNode("éditer");
+            let editLink = document.createTextNode("éditer"); // remplacer la légende d'origine par "éditer"
             figcaption.appendChild(editLink);
             figure.appendChild(figcaption);
+            // Créer une div pour la légende
+
+            // Ajouter un bouton d'édition avec une icône pencil
+            let editButton = document.createElement("button");
+            editButton.innerHTML = '<i class="fa fa-arrows-up-down-left-right"></i';
+            editButton.classList.add('edit-button');
+            editButton.addEventListener("click", () => {
+                // Action à effectuer lorsque le bouton d'édition est cliqué
+                console.log("Éditer l'image : ", work.imageUrl);
+            });
+            figcaption.appendChild(editButton);
 
             // Ajouter un bouton de suppression avec une icône trash
             let deleteButton = document.createElement("button");
-            deleteButton.classList.add("delete-button");
             deleteButton.innerHTML = '<i class="fa fa-trash-can"></i>';
+            deleteButton.classList.add('delete-button');
             deleteButton.addEventListener("click", () => {
                 // Action à effectuer lorsque le bouton de suppression est cliqué
                 console.log("Supprimer l'image : ", work.imageUrl);
             });
             figcaption.appendChild(deleteButton);
 
-            // Ajouter un bouton d'édition avec une icône pencil
-            if (index === 0) {
-                let editButton = document.createElement("button");
-                editButton.classList.add("edit-button");
-                editButton.innerHTML = '<i class="fa fa-arrows-up-down-left-right"></i>';
-                editButton.addEventListener("click", () => {
-                    // Action à effectuer lorsque le bouton d'édition est cliqué
-                    console.log("Éditer l'image : ", work.imageUrl);
-                });
-                figcaption.appendChild(editButton);
-            }
+            figure.appendChild(figcaption);
+            gallery.appendChild(figure);
+
+
+
 
             gallery.appendChild(figure);
         });

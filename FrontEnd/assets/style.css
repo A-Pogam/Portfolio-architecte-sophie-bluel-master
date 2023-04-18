@@ -570,7 +570,7 @@ figcaption {
 
 .delete-button {
 	left: 60px;
-	top: -115px;
+	top: -130px;
 	color: #fff;
 }
 
@@ -580,7 +580,7 @@ figcaption {
 
 .edit-button {
 	left: 40px;
-	top: -130px;
+	top: -115px;
 	color: #fff;
 }
 
@@ -591,7 +591,6 @@ figcaption {
 .gallery button {
 	display: flex;
 }
-
 
 
 /* MODALE 2 */
