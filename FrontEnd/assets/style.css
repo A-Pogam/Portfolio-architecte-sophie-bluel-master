@@ -571,11 +571,21 @@ figcaption {
 .delete-button {
 	left: 60px;
 	top: -115px;
+	color: #fff;
+}
+
+.fa-trash-can {
+	background-color: black;
 }
 
 .edit-button {
 	left: 40px;
 	top: -130px;
+	color: #fff;
+}
+
+.fa-arrows-up-down-left-right {
+	background-color: black;
 }
 
 .gallery button {

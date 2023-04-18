@@ -70,8 +70,6 @@ function toggleModal() {
 function openAddPhotoModal() {
 
 
-
-
     const modalTitle = document.querySelector('#modalTitle');
     modalTitle.textContent = 'Ajout photo';
 
@@ -278,12 +276,6 @@ fetch("http://localhost:5678/api/works")
         const gallery = document.createElement("div");
         gallery.classList.add("gallery");
 
-        // Stocker les travaux dans une variable globale
-        let works = data;
-
-        // Stocker l'ordre initial des images dans une variable globale
-        let initialOrder = [...works];
-
         data.forEach((work, index) => {
             let figure = document.createElement("figure");
 
@@ -301,7 +293,7 @@ fetch("http://localhost:5678/api/works")
             // Ajouter un bouton de suppression avec une icône trash
             let deleteButton = document.createElement("button");
             deleteButton.classList.add("delete-button");
-            deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+            deleteButton.innerHTML = '<i class="fa fa-trash-can"></i>';
             deleteButton.addEventListener("click", () => {
                 // Action à effectuer lorsque le bouton de suppression est cliqué
                 console.log("Supprimer l'image : ", work.imageUrl);
@@ -313,37 +305,9 @@ fetch("http://localhost:5678/api/works")
                 let editButton = document.createElement("button");
                 editButton.classList.add("edit-button");
                 editButton.innerHTML = '<i class="fa fa-arrows-up-down-left-right"></i>';
-
                 editButton.addEventListener("click", () => {
                     // Action à effectuer lorsque le bouton d'édition est cliqué
-                    console.log("Réorganiser les images");
-
-                    // Réorganiser les travaux de manière aléatoire
-                    works = shuffle([...works]);
-
-                    // Vider la galerie
-                    gallery.innerHTML = "";
-
-                    // Ajouter les travaux dans le nouvel ordre
-                    works.forEach((work) => {
-                        let newFigure = document.createElement("figure");
-                        let newImg = document.createElement("img");
-                        newImg.src = work.imageUrl;
-                        newImg.crossOrigin = "anonymous";
-                        newFigure.appendChild(newImg);
-                        let newCaption = document.createElement("figcaption");
-                        let editLink = document.createTextNode("éditer");
-                        newCaption.appendChild(editLink);
-                        let newDeleteButton = document.createElement("button");
-                        newDeleteButton.classList.add("delete-button");
-                        newDeleteButton.innerHTML = '<i class="fa fa-trash"></i>';
-                        newDeleteButton.addEventListener("click", () => {
-                            console.log("Supprimer l'image : ", work.imageUrl);
-                        });
-                        newCaption.appendChild(newDeleteButton);
-                        newFigure.appendChild(newCaption);
-                        gallery.appendChild(newFigure);
-                    });
+                    console.log("Éditer l'image : ", work.imageUrl);
                 });
                 figcaption.appendChild(editButton);
             }
@@ -352,7 +316,6 @@ fetch("http://localhost:5678/api/works")
         });
 
         modalContent.insertBefore(gallery, modalContent.querySelector("hr"));
-
     });
 
 addPhotoButton.addEventListener('click', openAddPhotoModal);
