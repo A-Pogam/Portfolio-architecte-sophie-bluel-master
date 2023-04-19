@@ -486,8 +486,7 @@ figcaption {
 }
 
 .close-modal,
-.modal-container,
-.close-modal2 {
+.modal-container {
 	padding: 0;
 	border: none !important;
 	border-radius: 5px;
@@ -638,16 +637,17 @@ form,
 	background-color: transparent !important;
 }
 
-.close-modal2 {
-	margin-left: 455px;
-}
-
 .content-file-upload {
 	margin-bottom: 27px;
 }
 
 .icon {
 	margin-bottom: 27px;
+}
+
+.previous {
+	display: flex;
+	bottom: 63px;
 }
 
 .fa-image {
