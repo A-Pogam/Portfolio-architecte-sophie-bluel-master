@@ -62,13 +62,9 @@ function portfolioFiltered(filteredTool) {
 };
 // afficher les images et les titres associés à un outil spécifique dans la galerie et sélectionne la galerie avec querySelector et met à jour son contenu en vidant son innerHTML //
 
-const mainGallery = document.querySelector('#mainGallery');
-const modalGallery = modalContainer.querySelector('.gallery');
 
 function toggleModal() {
     modalContainer.classList.toggle("active");
-    modalGallery.style.display = "none";
-    mainGallery.style.display = "block";
 }
 
 
@@ -89,12 +85,11 @@ function openAddPhotoModal() {
         </div>
 
         <div class="container">
-            <div class="wrapper">
+            <div class="wrapper" id="preview-container">
                 <div class="content-file-upload">
                 <div class="icon"><i class="fa-regular fa-image fa-6x"></i></div>
                 <input id="file-upload" type="file"></input>
                 <label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
-                <img id="preview-img">
                 <p class="jpg">jpg, png : 4 mo max</p>
             </div>
 
@@ -120,26 +115,38 @@ function openAddPhotoModal() {
 
   `;
 
-    //cherche à prévisualiser l'image chargé 
-    const inputFile = document.getElementById('file-upload');
-    const previewImg = document.querySelector('#preview-img');
+    const previewContainer = document.getElementsByClassName('.modal-container');
 
+    if (!previewContainer) {
+        console.error('previewContainer not found!');
+        return;
+    }
+
+    const inputFile = document.getElementById('file-upload');
+
+    // Création de l'élément img
+    const previewImg = document.createElement('img');
+    previewImg.setAttribute('id', 'preview-img');
+    previewContainer.appendChild(previewImg);
+
+    // Écouteur d'événement pour le changement de fichier
     inputFile.addEventListener('change', () => {
         const file = inputFile.files[0];
         console.log(file);
         const reader = new FileReader();
 
-        reader.addEventListener('load', () => {
-            console.log('image loaded');
-            previewImg.src = reader.result;
-        });
-
         if (file) {
+            reader.addEventListener('load', () => {
+                console.log('image loaded');
+                previewImg.src = reader.result;
+            });
             reader.readAsDataURL(file);
         }
     });
 
 }
+
+
 
 function manageFilters() {
     if (sessionStorage.getItem('token')) {
@@ -153,6 +160,9 @@ function manageFilters() {
 
     }
 }
+
+
+
 
 // ************************ MAIN CODE !!!!!! ****************************
 
@@ -302,10 +312,32 @@ fetch("http://localhost:5678/api/works")
             deleteButton.classList.add("delete-button");
             deleteButton.innerHTML = '<i class="fa fa-trash-can"></i>';
             deleteButton.addEventListener("click", () => {
-                // Action à effectuer lorsque le bouton de suppression est cliqué
-                console.log("Supprimer l'image : ", work.imageUrl);
+                // Récupérer l'id du travail à supprimer
+                const workId = work.id;
+
+                // Envoyer la requête DELETE au serveur afin de supprimer un travail
+                fetch(`http://localhost:5678/api/works/${workId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Supprimer l'élément de la page une fois la suppression réussie
+                            figure.remove();
+                            console.log(`Le travail avec l'id ${workId} a été supprimé.`);
+                        } else {
+                            throw new Error("Erreur lors de la suppression du travail.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             });
+
             figcaption.appendChild(deleteButton);
+
 
             // Ajouter un bouton d'édition avec une icône pencil
             if (index === 0) {
@@ -315,6 +347,7 @@ fetch("http://localhost:5678/api/works")
                 editButton.addEventListener("click", () => {
                     // Action à effectuer lorsque le bouton d'édition est cliqué
                     console.log("Éditer l'image : ", work.imageUrl);
+
                 });
                 figcaption.appendChild(editButton);
             }
@@ -324,5 +357,8 @@ fetch("http://localhost:5678/api/works")
 
         modalContent.insertBefore(gallery, modalContent.querySelector("hr"));
     });
+
+
+
 
 addPhotoButton.addEventListener('click', openAddPhotoModal);

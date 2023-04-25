@@ -720,3 +720,7 @@ form {
 	width: 237px;
 	cursor: pointer;
 }
+
+.hidden {
+	display: none;
+}
