@@ -69,82 +69,132 @@ function toggleModal() {
 
 
 function openAddPhotoModal() {
-
-
     const modalTitle = document.querySelector('#modalTitle');
     modalTitle.textContent = 'Ajout photo';
     modalContainer.querySelector('.gallery').style.display = "none";
     modalContainer.querySelector('hr').style.display = "none";
 
-
     const dialogDesc = document.querySelector('#dialogDesc');
     dialogDesc.innerHTML = `
-    <div class="modal-container-2">
-        <div class="icons">
-            <button class="previous"><i class="fa fa-arrow-left"></i></button>
-        </div>
-
-        <div class="container">
-            <div class="wrapper" id="preview-container">
-                <div class="content-file-upload">
-                <div class="icon"><i class="fa-regular fa-image fa-6x"></i></div>
-                <input id="file-upload" type="file"></input>
-                <label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
-                <p class="jpg">jpg, png : 4 mo max</p>
-            </div>
-
-            <form id="form-file">
-                    <label id="title" for="photoTitle">Titre</label>
-                    <input type="text" id="photoTitle" name="photoTitle">
-                    <label id="categories" for="categories">Catégorie</label>
-                        <select id="select">
-                            <option></option>
-                            <option value="Objets">Objets</option>
-                            <option value="Appartement">Appartements</option>
-                            <option value="Hôtels & restaurants">Hôtels & restaurants</option>
-                        </select>
-            </form>
-            
-            <div class="foot">
-                <hr>
-                <ul id="dialogDesc2"> 
+      <div class="modal-container-2">
+          <div class="icons">
+              <button class="previous"><i class="fa fa-arrow-left"></i></button>
+          </div>
+  
+          <div class="container">
+              <div class="wrapper" id="preview-container">
+                  <div class="content-file-upload">
+                  <div class="icon"><i class="fa-regular fa-image fa-6x"></i></div>
+                  <input id="file-upload" type="file" name="photo"></input>
+                  <label for="file-upload" class="custom-file-upload">+ Ajouter photo</label>
+                  <p class="jpg">jpg, png : 4 mo max</p>
+              </div>
+  
+              <form id="form-file">
+                      <label id="title" for="photoTitle">Titre</label>
+                      <input type="text" id="photoTitle" name="photoTitle">
+                      <label id="categories" for="categories">Catégorie</label>
+                          <select id="select">
+                              <option></option>
+                              <option value="Objets">Objets</option>
+                              <option value="Appartement">Appartements</option>
+                              <option value="Hôtels & restaurants">Hôtels & restaurants</option>
+                          </select>
+              </form>
+              
+              <div class="foot">
+                  <hr>
+                  <ul id="dialogDesc2">
+                  <li>
                     <button id="valider">Valider</button>
+                    <p id="errorMsgForm"></p>
+                  </li>
                 </ul>
-            </div>           
-        </div>
+                
+              </div>           
+          </div>
+      </div>
+    `;
 
-  `;
+    function checkFields() {
+        const photoTitle = document.getElementById('photoTitle').value;
+        const photoCategory = document.getElementById('select').value;
+        const selectedFile = document.getElementById('file-upload').files[0];
 
-    const previewContainer = document.getElementsByClassName('.modal-container');
-
-    if (!previewContainer) {
-        console.error('previewContainer not found!');
-        return;
+        if (!photoTitle || !photoCategory || !selectedFile) {
+            return false;
+        }
+        return true;
     }
 
-    const inputFile = document.getElementById('file-upload');
+    async function uploadPhoto(photoData) {
+        const myToken = localStorage.getItem('accessToken');
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${myToken}`,
+            },
+            body: photoData,
+        });
+        const responseData = await response.json();
+        return responseData;
+    }
 
-    // Création de l'élément img
-    const previewImg = document.createElement('img');
-    previewImg.setAttribute('id', 'preview-img');
-    previewContainer.appendChild(previewImg);
+    document.getElementById('valider').addEventListener('click', function () {
+        let isValid = checkFields(); // Vérification des champs
+        if (isValid) {
+            const selectedFile = document.getElementById('file-upload').files[0];
+            const imageUrl = URL.createObjectURL(selectedFile);
+            const title = document.getElementById('photoTitle').value;
+            const categoryId = document.getElementById('select').value;
+            let formData = new FormData();
+            formData.append('photo', selectedFile);
+            formData.append('photoTitle', title);
+            formData.append('categories', categoryId);
 
-    // Écouteur d'événement pour le changement de fichier
-    inputFile.addEventListener('change', () => {
-        const file = inputFile.files[0];
-        console.log(file);
-        const reader = new FileReader();
-
-        if (file) {
-            reader.addEventListener('load', () => {
-                console.log('image loaded');
-                previewImg.src = reader.result;
-            });
-            reader.readAsDataURL(file);
+            const myToken = localStorage.getItem('accessToken');
+            const errorMsgForm = document.getElementById('errorMsgForm');
+            if (myToken) {
+                fetch('http://localhost:5678/api/works', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Authorization': `Bearer ${myToken}`,
+                    }
+                })
+                    .then(function (response) {
+                        console.log('Response:', response);
+                        if (response.ok) {
+                            addNewWork(title, imageUrl, categoryId);
+                            successMsgForm.style.display = 'flex';
+                            btnValidate.classList.remove('green');
+                            setTimeout(function () {
+                                closeModals();
+                            }, 2000);
+                        } else {
+                            errorMsgForm.style.display = 'flex';
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log('Error:', error);
+                        errorMsgForm.style.display = 'flex';
+                    });
+            } else {
+                console.log('Token not found in local storage');
+                errorMsgForm.style.display = 'flex';
+            }
+        } else {
+            errorMsgForm.style.display = 'flex';
         }
     });
 
+
+
+
+    const imageInput = document.getElementById("file-upload");
+    imageInput.addEventListener("change", uploadPhoto);
 }
+
 
 
 
