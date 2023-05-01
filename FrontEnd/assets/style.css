@@ -639,11 +639,8 @@ form,
 	background-color: transparent !important;
 }
 
-.content-file-upload {
-	margin-bottom: 27px;
-}
-
-.icon {
+.icon,
+.jpg {
 	margin-bottom: 27px;
 }
 

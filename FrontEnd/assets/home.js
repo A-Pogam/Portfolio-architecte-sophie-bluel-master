@@ -68,13 +68,15 @@ function toggleModal() {
 }
 
 
+
 function openAddPhotoModal() {
     const modalTitle = document.querySelector('#modalTitle');
     modalTitle.textContent = 'Ajout photo';
     modalContainer.querySelector('.gallery').style.display = "none";
     modalContainer.querySelector('hr').style.display = "none";
+    document.querySelector(".modal").innerHTML = "";
 
-    const dialogDesc = document.querySelector('#dialogDesc');
+    const dialogDesc = document.querySelector(".modal");
     dialogDesc.innerHTML = `
       <div class="modal-container-2">
           <div class="icons">
@@ -101,6 +103,7 @@ function openAddPhotoModal() {
                               <option value="Hôtels & restaurants">Hôtels & restaurants</option>
                           </select>
               </form>
+              <div id="selected-option"></div>
               
               <div class="foot">
                   <hr>
@@ -115,6 +118,8 @@ function openAddPhotoModal() {
           </div>
       </div>
     `;
+
+
 
     const form = document.getElementById("form-file");
     const photoInput = document.getElementById("file-upload");
