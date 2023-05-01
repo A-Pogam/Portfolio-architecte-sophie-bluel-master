@@ -14,6 +14,11 @@ submit.addEventListener("click", (event) => {
     }
     //  message d'erreur si un champ est vide //
 
+    console.log(typeof email, email);
+    console.log(typeof password, password);
+    console.log(typeof JSON.stringify({ email: email, password: password }), JSON.stringify({ email: email, password: password }));
+
+
     fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: {

@@ -724,3 +724,9 @@ form {
 .hidden {
 	display: none;
 }
+
+#preview-image {
+	max-width: 200px;
+}
+
+#form-file {}

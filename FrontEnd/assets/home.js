@@ -17,7 +17,7 @@ button.push(btnHotel);
 button.push(btnObject);
 // crée tableau avec tous les boutons nécessaires //
 
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 
 // remplacer login par logout si connecté et recharger page quand déconnecté
 const loginLink = document.querySelector('.login a');
@@ -116,83 +116,59 @@ function openAddPhotoModal() {
       </div>
     `;
 
-    function checkFields() {
-        const photoTitle = document.getElementById('photoTitle').value;
-        const photoCategory = document.getElementById('select').value;
-        const selectedFile = document.getElementById('file-upload').files[0];
+    const form = document.getElementById("form-file");
+    const photoInput = document.getElementById("file-upload");
+    const titleInput = document.getElementById("photoTitle");
+    const categorySelect = document.getElementById("select");
 
-        if (!photoTitle || !photoCategory || !selectedFile) {
-            return false;
-        }
-        return true;
-    }
 
-    async function uploadPhoto(photoData) {
-        const myToken = localStorage.getItem('accessToken');
-        const response = await fetch('http://localhost:5678/api/works', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${myToken}`,
-            },
-            body: photoData,
-        });
-        const responseData = await response.json();
-        return responseData;
-    }
-
-    document.getElementById('valider').addEventListener('click', function () {
-        let isValid = checkFields(); // Vérification des champs
-        if (isValid) {
-            const selectedFile = document.getElementById('file-upload').files[0];
-            const imageUrl = URL.createObjectURL(selectedFile);
-            const title = document.getElementById('photoTitle').value;
-            const categoryId = document.getElementById('select').value;
-            let formData = new FormData();
-            formData.append('photo', selectedFile);
-            formData.append('photoTitle', title);
-            formData.append('categories', categoryId);
-
-            const myToken = localStorage.getItem('accessToken');
-            const errorMsgForm = document.getElementById('errorMsgForm');
-            if (myToken) {
-                fetch('http://localhost:5678/api/works', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Authorization': `Bearer ${myToken}`,
-                    }
-                })
-                    .then(function (response) {
-                        console.log('Response:', response);
-                        if (response.ok) {
-                            addNewWork(title, imageUrl, categoryId);
-                            successMsgForm.style.display = 'flex';
-                            btnValidate.classList.remove('green');
-                            setTimeout(function () {
-                                closeModals();
-                            }, 2000);
-                        } else {
-                            errorMsgForm.style.display = 'flex';
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log('Error:', error);
-                        errorMsgForm.style.display = 'flex';
-                    });
-            } else {
-                console.log('Token not found in local storage');
-                errorMsgForm.style.display = 'flex';
-            }
-        } else {
-            errorMsgForm.style.display = 'flex';
+    photoInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const img = document.createElement("img");
+                img.src = reader.result;
+                img.id = "preview-image";
+                const contentFileUpload = document.querySelector(".content-file-upload");
+                contentFileUpload.innerHTML = "";
+                contentFileUpload.prepend(img);
+            };
         }
     });
 
 
 
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("photo", photoInput.files[0]);
+        formData.append("titre", titleInput.value);
+        formData.append("categorie", categorySelect.value);
 
-    const imageInput = document.getElementById("file-upload");
-    imageInput.addEventListener("change", uploadPhoto);
+        fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            body: formData,
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    // Le travail a été ajouté avec succès
+                    console.log("Le travail a été ajouté avec succès");
+                    form.reset();
+                } else {
+                    throw new Error("La réponse du réseau n'était pas correcte");
+                }
+            })
+            .catch((error) => {
+                // Traitement de l'erreur
+                console.error(error);
+            });
+    });
+
 }
 
 
