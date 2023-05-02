@@ -579,8 +579,6 @@ figcaption {
 	background-color: black;
 }
 
-
-
 .edit-button {
 	left: 40px;
 	top: -130px;
@@ -646,7 +644,7 @@ form,
 
 .previous {
 	display: flex;
-	bottom: 63px;
+	left: 20px;
 }
 
 .fa-image {

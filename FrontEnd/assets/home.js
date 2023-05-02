@@ -48,8 +48,6 @@ const token = sessionStorage.getItem("token");
 
 const loginLink = document.querySelector(".login a");
 
-
-
 const modalContainer = document.querySelector(".modal-container");
 
 const modalTriggers = document.querySelectorAll(".modal-trigger");
@@ -138,6 +136,7 @@ function toggleModal() {
 
 
 
+
 function openAddPhotoModal() {
 
     const modalTitle = document.querySelector("#modalTitle");
@@ -151,7 +150,6 @@ function openAddPhotoModal() {
     document.querySelector(".modal").innerHTML = "";
 
 
-
     const dialogDesc = document.querySelector(".modal");
 
     dialogDesc.innerHTML = `
@@ -160,7 +158,7 @@ function openAddPhotoModal() {
 
           <div class="icons">
 
-              <button class="previous"><i class="fa fa-arrow-left"></i></button>
+              <button onclick="goBackToPreviousModal()" class="previous"><i class="fa fa-arrow-left"></i></button>
 
           </div>
 
@@ -206,8 +204,7 @@ function openAddPhotoModal() {
 
               </form>
 
-              <div id="selected-option"></div>
-
+              <div id="error-container"></div>
               
 
               <div class="foot">
@@ -237,7 +234,7 @@ function openAddPhotoModal() {
     `;
 
 
-
+    
     const form = document.getElementById("form-file");
 
     const photoInput = document.getElementById("file-upload");
@@ -292,6 +289,14 @@ function openAddPhotoModal() {
 
         const category = categorySelect.value;
 
+
+        if (title === '' || category === '') {
+            // Afficher un message d'erreur
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = 'Veuillez remplir tous les champs obligatoires';
+            document.getElementById('error-container').appendChild(errorMessage);
+            return;          
+          }
 
 
         formData = new FormData();
