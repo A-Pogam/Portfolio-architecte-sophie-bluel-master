@@ -58,7 +58,7 @@ const modalTriggers = document.querySelectorAll(".modal-trigger");
 
 const editButtons = document.querySelectorAll(
 
-    ".edit1, .edit2, .modal-btn modal-trigger, .banner, .modal"
+    ".edit1, .edit2, .modal-btn, .banner, .modal"
 
 );
 
