@@ -439,6 +439,10 @@ figcaption {
 	padding-right: 5px;
 }
 
+.form {
+	background-color: #FFFEF8 ;
+}
+
 /* MODAL */
 
 .modal-container {
@@ -614,10 +618,6 @@ form,
 .icons,
 .foot {
 	background-color: #fff;
-}
-
-.modal-container-2 {
-	position: absolute;
 }
 
 
