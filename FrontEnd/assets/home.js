@@ -129,11 +129,8 @@ function portfolioFiltered(filteredTool) {
 
 
 function toggleModal() {
-
     modalContainer.classList.toggle("active");
-
 }
-
 
 
 
@@ -144,6 +141,8 @@ function openAddPhotoModal() {
     modalTitle.textContent = "Ajout photo";
 
     modalContainer.querySelector(".gallery").style.display = "none";
+
+    modalContainer2 = document.querySelector(".modal-container-2");
 
     modalContainer.querySelector("hr").style.display = "none";
 
@@ -158,7 +157,13 @@ function openAddPhotoModal() {
 
           <div class="icons">
 
-              <button onclick="goBackToPreviousModal()" class="previous"><i class="fa fa-arrow-left"></i></button>
+            <button class="previous"><i class="fa fa-arrow-left"></i></button>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+            </button>
+
+
 
           </div>
 
@@ -232,6 +237,39 @@ function openAddPhotoModal() {
       </div>
 
     `;
+
+    // Sélectionner le bouton de fermeture de la modale
+    var closeBtn = document.querySelector(".modal-container .close");
+
+    // Sélectionner la modale
+    var modal = document.querySelector(".modal-container");
+
+    // Fermer la modale lorsqu'on clique sur le bouton de fermeture
+    closeBtn.addEventListener("click", function() {
+    modal.classList.remove("active");
+    });
+
+    // Fermer la modale lorsqu'on clique à l'extérieur de celle-ci
+    window.addEventListener("click", function(event) {
+    if (event.target === modal) {
+        modal.classList.remove("active");
+    }
+    });
+
+    function goBackToPreviousModal() {
+        // Sélectionner la modale actuelle
+        var currentModal = document.querySelector(".modal-container.active");
+      
+        // Sélectionner la modale précédente
+        var previousModal = document.querySelector(".modal-container");
+      
+        // Supprimer la classe "active" de la modale actuelle
+        currentModal.classList.remove("active");
+      
+        // Ajouter la classe "active" à la modale précédente
+        previousModal.classList.add("active");
+      }
+      
 
 
     
@@ -389,6 +427,8 @@ function manageFilters() {
 
 
 
+
+
 // ************************ MAIN CODE !!!!!! ****************************
 
 
@@ -409,9 +449,13 @@ fetch("http://localhost:5678/api/works")
 
     })
 
+    
+
     .then(function (data) {
+        console.log("Data:", data);
 
         btnObject.addEventListener("click", function () {
+            console.log("Objets clicked");
 
             //Lorsque le bouton est cliqué, le code ci-dessous est exécuté //
 
@@ -426,6 +470,8 @@ fetch("http://localhost:5678/api/works")
                 return obj;
 
             }, {});
+
+            console.log("Filtered Objets:", filteredTool);
 
             // crée un nouvel objet filteredTool en utilisant la méthode reduce sur un tableau qui contient les paires clé-valeur de l'objet data. Pour chaque paire, la fonction de rappel de reduce vérifie si la catégorie de l'objet correspondant est "Objets"//
 
@@ -628,8 +674,6 @@ fetch("http://localhost:5678/api/works")
         data.forEach((work, index) => {
 
             let figure = document.createElement("figure");
-
-
 
             let img = document.createElement("img");
 

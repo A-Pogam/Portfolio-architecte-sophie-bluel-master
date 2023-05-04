@@ -645,10 +645,19 @@ form,
 .previous {
 	display: flex;
 	left: 20px;
+	top: 10px;
 }
 
 .fa-image {
 	color: #9faeb6;
+}
+
+.close {
+	border: none;
+	color: black;
+	bottom: 65px;
+	right: 20px;
+	cursor: pointer;
 }
 
 .jpg {
