@@ -140,7 +140,7 @@ function openAddPhotoModal() {
 
     modalTitle.textContent = "Ajout photo";
 
-    modalContainer.querySelector(".gallery").style.display = "none";
+    modalContainer.querySelector(".modal1").style.display = "none";
 
     modalContainer2 = document.querySelector(".modal-container-2");
 
