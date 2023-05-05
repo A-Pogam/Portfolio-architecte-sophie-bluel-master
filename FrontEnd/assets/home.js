@@ -142,8 +142,6 @@ function openAddPhotoModal() {
 
     modalContainer.querySelector(".modal1").style.display = "none";
 
-    modalContainer2 = document.querySelector(".modal-container-2");
-
     modalContainer.querySelector("hr").style.display = "none";
 
     document.querySelector(".modal").innerHTML = "";
@@ -237,12 +235,28 @@ function openAddPhotoModal() {
       </div>
 
     `;
+    
+    let previous = document.querySelector(".previous");
+
+    previous.addEventListener("click",goBackToPreviousModal)
+ 
+        function goBackToPreviousModal() { // FONCTION POUR REVENIR A LA MODALE PRECEDENTE
+            // Sélectionner la modale actuelle
+            let modalContainer2 = document.querySelector(".modal-container-2");
+
+            modalContainer2.style.display = "none";
+
+            modalContainer.querySelector(".modal").style.display = "block";
+
+            modalContainer.querySelector("hr").style.display = "block";
+
+        }
 
     // Sélectionner le bouton de fermeture de la modale
-    var closeBtn = document.querySelector(".modal-container .close");
+    let closeBtn = document.querySelector(".modal-container .close");
 
     // Sélectionner la modale
-    var modal = document.querySelector(".modal-container");
+    let modal = document.querySelector(".modal-container");
 
     // Fermer la modale lorsqu'on clique sur le bouton de fermeture
     closeBtn.addEventListener("click", function() {
@@ -250,26 +264,16 @@ function openAddPhotoModal() {
     });
 
     // Fermer la modale lorsqu'on clique à l'extérieur de celle-ci
-    window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        modal.classList.remove("active");
-    }
+       window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            modal.classList.remove("active");
+        }
     });
 
-    function goBackToPreviousModal() { // FONCTION POUR REVENIR A LA MODALE PRECEDENTE
-        // Sélectionner la modale actuelle
-        var currentModal = document.querySelector(".modal-container.active");
-      
-        // Sélectionner la modale précédente
-        var previousModal = document.querySelector(".modal-container");
-      
-        // Supprimer la classe "active" de la modale actuelle
-        currentModal.classList.remove("active");
-      
-        // Ajouter la classe "active" à la modale précédente
-        previousModal.classList.add("active");
-      }
-      
+   
+
+
+        
 
 
     
