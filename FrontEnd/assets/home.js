@@ -256,7 +256,7 @@ function openAddPhotoModal() {
     }
     });
 
-    function goBackToPreviousModal() {
+    function goBackToPreviousModal() { // FONCTION POUR REVENIR A LA MODALE PRECEDENTE //
         // Sélectionner la modale actuelle
         var currentModal = document.querySelector(".modal-container.active");
       
@@ -667,7 +667,7 @@ fetch("http://localhost:5678/api/works")
 
         const gallery = document.createElement("div");
 
-        gallery.classList.add("gallery");
+        /*gallery.classList.add("gallery");*/
 
 
 
