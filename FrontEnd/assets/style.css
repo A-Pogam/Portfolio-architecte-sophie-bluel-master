@@ -538,7 +538,8 @@ figcaption {
 	color: #D65353;
 }
 
-.modal .gallery {
+.modal .modal1 {
+	display: flex;
 	margin-top: 46px;
 	margin-left: 105px;
 	margin-right: 105px;
@@ -549,8 +550,9 @@ figcaption {
 	place-items: center;
 }
 
-.modal figure {
+.modal1 figure {
 	background-color: #fff;
+	width: auto;
 }
 
 
