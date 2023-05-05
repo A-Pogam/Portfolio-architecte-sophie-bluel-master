@@ -539,7 +539,7 @@ figcaption {
 }
 
 .modal .modal1 {
-	display: flex;
+	display: grid;
 	margin-top: 46px;
 	margin-left: 105px;
 	margin-right: 105px;
@@ -553,6 +553,11 @@ figcaption {
 .modal1 figure {
 	background-color: #fff;
 	width: auto;
+}
+
+.modal1 img {
+	width: 100%;
+	height: 100px;
 }
 
 
@@ -575,8 +580,8 @@ figcaption {
 }
 
 .delete-button {
-	left: 60px;
-	top: -115px;
+	left: 10px;
+	top: -100px;
 	color: #fff;
 }
 
@@ -587,8 +592,8 @@ figcaption {
 }
 
 .edit-button {
-	left: 40px;
-	top: -130px;
+	left: 10px;
+	top: -120px;
 	color: #fff;
 }
 
