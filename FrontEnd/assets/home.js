@@ -136,18 +136,10 @@ function toggleModal() {
 
 function openAddPhotoModal() {
 
-    const modalTitle = document.querySelector("#modalTitle");
-
-    modalTitle.textContent = "Ajout photo";
-
     modalContainer.querySelector(".modal1").style.display = "none";
 
-    modalContainer.querySelector("hr").style.display = "none";
 
-    document.querySelector(".modal").innerHTML = "";
-
-
-    const dialogDesc = document.querySelector(".modal");
+    const dialogDesc = document.querySelector(".modal2");
 
     dialogDesc.innerHTML = `
 
@@ -236,21 +228,6 @@ function openAddPhotoModal() {
 
     `;
     
-    let previous = document.querySelector(".previous");
-
-    previous.addEventListener("click",goBackToPreviousModal)
- 
-        function goBackToPreviousModal() { // FONCTION POUR REVENIR A LA MODALE PRECEDENTE
-            // Sélectionner la modale actuelle
-            let modalContainer2 = document.querySelector(".modal-container-2");
-
-            modalContainer2.style.display = "none";
-
-            modalContainer.querySelector(".modal").style.display = "block";
-
-            modalContainer.querySelector("hr").style.display = "block";
-
-        }
 
     // Sélectionner le bouton de fermeture de la modale
     let closeBtn = document.querySelector(".modal-container .close");
@@ -270,10 +247,21 @@ function openAddPhotoModal() {
         }
     });
 
-   
+    // Sélectionner le bouton "retour" dans la modal 2
+    const previousButton = document.querySelector(".previous");
 
+    // Ajouter un événement "click" sur le bouton "retour"
+    previousButton.addEventListener("click", goBackToPreviousModal);
 
-        
+    // Définir la fonction "goBackToPreviousModal"
+    function goBackToPreviousModal() {
+        let modalContainer2 = document.querySelector(".modal-container-2");
+
+        modalContainer2.style.display = "none";
+      
+        document.querySelector(".modal1").style.display = "initial";
+    }
+
 
 
     
