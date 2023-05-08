@@ -476,7 +476,7 @@ figcaption {
 	width: 630px;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh -20px);
-	padding: 20px;
+	padding: 0 20px 0 20px;
 	border-radius: 5px;
 	position: fixed;
 	top: 50%;
@@ -604,6 +604,9 @@ figcaption {
 	display: flex;
 }
 
+.delete-gallery {
+	padding-bottom: 20px;
+}
 
 /* MODALE 2 */
 
@@ -660,6 +663,7 @@ form,
 	display: flex;
 	left: 20px;
 	top: 10px;
+	margin-top: 20px !important;
 }
 
 .fa-image {
@@ -673,6 +677,11 @@ form,
 	right: 20px;
 	cursor: pointer;
 }
+
+.close-modal {
+	margin-top: 20px;
+}
+
 
 .jpg {
 	margin-top: 19px;
